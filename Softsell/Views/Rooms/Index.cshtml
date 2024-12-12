@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Softsell.Models.Room>
+
+<h1>Room Inventory</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Room Number</th>
+            <th>Room Type</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model)
+        {
+            <tr>
+                <td>@room.RoomNumber</td>
+                <td>@room.RoomType</td>
+                <td>@room.Price</td>
+                <td>@room.Status</td>
+                <td>
+                    @if (room.Status == "Available")
+                    {
+                        <form method="post" action="@Url.Action("CheckIn", "Rooms")">
+                            <input type="hidden" name="roomId" value="@room.RoomID" />
+                            <input type="text" name="guestName" placeholder="Enter guest name" required />
+                            <button type="submit">Check In</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>Occupied</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

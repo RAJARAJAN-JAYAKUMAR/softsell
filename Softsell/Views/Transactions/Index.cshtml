@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Softsell.Models.Transaction>
+
+<h1>Transactions</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Guest Name</th>
+            <th>Room Number</th>
+            <th>Total Amount</th>
+            <th>Payment Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.Guest.Name</td>
+                <td>@transaction.Room.RoomNumber</td>
+                <td>@transaction.TotalAmount</td>
+                <td>@transaction.PaymentStatus</td>
+                <td>
+                    <form method="post" action="@Url.Action("CheckOut", "Transactions")">
+                        <input type="hidden" name="guestId" value="@transaction.Guest.GuestID" />
+                        <button type="submit">Check Out</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+        
